@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-23",
+  "package": "dsh-hifly",
+  "version": "0.1.0",
+  "host": "DeepSeek Harness Desktop 0.2.2-rc.5",
+  "upstream": "https://hifly.cc/mcp",
+  "browserOAuth": "passed",
+  "discoveredTools": 22,
+  "standaloneReadOnlyAccountQuery": "passed",
+  "harnessConversationReadOnlyAccountQuery": "passed",
+  "generatedContent": false,
+  "marketplacePublished": false,
+  "notes": "A disconnected pre-authorization instance was restarted after successful browser consent. Subsequent connection reused the saved grant. No account identifiers, balances, tokens or authorization codes are recorded here."
+}

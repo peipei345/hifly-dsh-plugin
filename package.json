@@ -1,0 +1,60 @@
+{
+  "name": "dsh-hifly",
+  "version": "0.1.0",
+  "description": "飞影 HiFly：通过浏览器授权，在 DeepSeek Harness 中使用数字人、配音与视频生成工具。",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./assets/icon.svg"
+  },
+  "files": [
+    "index.mjs",
+    "connection.mjs",
+    "cordis.patch.yml",
+    "locale",
+    "assets",
+    "README.md",
+    "README.en.md"
+  ],
+  "icon": "./assets/icon.svg",
+  "homepage": "https://hifly.cc/agent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peipei345/hifly-dsh-plugin.git"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "飞影",
+    "hifly",
+    "mcp",
+    "digital-human",
+    "video",
+    "oauth"
+  ],
+  "engines": {
+    "node": ">=22.0.0",
+    "dsh": "0.2.2-rc.5"
+  },
+  "dependencies": {
+    "mcp-remote": "0.16.7"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-mcp-manager": "0.2.2-rc.5"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "check": "node --check index.mjs && node --check connection.mjs && node scripts/check-package.mjs",
+    "verify:connection": "node scripts/verify-connection.mjs"
+  }
+}

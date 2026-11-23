@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tgz
+.DS_Store
+*.log
+.env
+.env.*
+auth/
+tokens.json
+client.json
+market-output/
