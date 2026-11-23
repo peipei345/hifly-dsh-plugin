@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 
 // Run only after the company has selected and published a public release repo.
 const repo = process.argv[2];
@@ -7,19 +8,17 @@ if (!repo || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
   console.error('The company GitLab project remains private. This does not publish or change any repository.');
   process.exit(1);
 }
-const response = await fetch(`https://api.github.com/repos/${repo}`, {
-  headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'hifly-market-preflight' },
-  redirect: 'error', signal: AbortSignal.timeout(15000),
-});
-if (!response.ok) throw new Error(`Public GitHub repository is not accessible (HTTP ${response.status})`);
-const repository = await response.json();
+// GitHub CLI honors the machine's proxy configuration and never exposes its token here.
+// This command only reads public repository metadata and package contents.
+function github(path) {
+  return JSON.parse(execFileSync('gh', ['api', path], { encoding: 'utf8', timeout: 30000 }));
+}
+const repository = github(`repos/${repo}`);
 if (repository.private || repository.archived || repository.disabled) throw new Error('Repository must be public, active and not archived');
 if (repository.full_name.toLowerCase() !== repo.toLowerCase()) throw new Error('Repository identity does not match');
-const manifestResponse = await fetch(`https://raw.githubusercontent.com/${repo}/${encodeURIComponent(repository.default_branch)}/package.json`, {
-  redirect: 'error', signal: AbortSignal.timeout(15000),
-});
-if (!manifestResponse.ok) throw new Error('Publish the plugin files at the repository root before submitting');
-const manifest = await manifestResponse.json();
+const file = github(`repos/${repo}/contents/package.json?ref=${encodeURIComponent(repository.default_branch)}`);
+if (file.encoding !== 'base64' || typeof file.content !== 'string') throw new Error('Published package.json is not a regular file');
+const manifest = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
 const local = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 if (manifest.name !== local.name || manifest.version !== local.version || !manifest.dsh?.bundle?.patch) {
   throw new Error('Published package identity or dsh.bundle differs from this release');
