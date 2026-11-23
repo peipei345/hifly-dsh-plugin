@@ -4,11 +4,15 @@
 
 A DSH connection plugin for the existing HiFly MCP endpoint, `https://hifly.cc/mcp`. Users authorize their own HiFly account in the browser and use the tools available to that account.
 
-This is an unpublished release candidate targeting DSH `0.2.2-rc.5`. Local Desktop installation, browser OAuth, discovery of 22 tools, and a real read-only account query have passed. It requires Node.js 22+; DSH Desktop uses its bundled runtime. Source: https://github.com/peipei345/hifly-dsh-plugin . Marketplace listing is pending.
+This release targets DSH `0.2.2-rc.5`. Local Desktop installation, browser OAuth, discovery of 22 tools, and a real read-only account query have passed. It requires Node.js 22+; DSH Desktop uses its bundled runtime. Source: https://github.com/peipei345/hifly-dsh-plugin . Marketplace listing is pending.
 
 ## Install
 
-Open **Plugins → Add plugin** and enter the absolute local package path, or the release URL once published. Enable **HiFly · 飞影**, complete browser OAuth, and return to Harness.
+Open **Plugins → Add plugin** and enter:
+
+`https://github.com/peipei345/hifly-dsh-plugin/releases/download/v0.1.0/dsh-hifly-0.1.0.tgz`
+
+For local development, an absolute package directory also works. Enable **HiFly · 飞影**, complete browser OAuth, and return to Harness.
 
 First try: `Check my HiFly plan and credits. Do not create any assets or videos.`
 

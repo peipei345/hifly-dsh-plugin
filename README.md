@@ -6,11 +6,15 @@
 
 ## 当前状态
 
-这是待发布的插件候选版本，尚未进入插件市场。已在 DSH 桌面版 `0.2.2-rc.5` 完成安装、浏览器 OAuth 和真实账户只读查询；连接验证发现了 22 个工具。需要 Node.js 22 或更高版本；DSH 桌面端使用自带的 Node.js。源码发布仓库为 https://github.com/peipei345/hifly-dsh-plugin 。市场收录申请尚未提交。
+插件安装包已准备发布，尚未进入插件市场。已在 DSH 桌面版 `0.2.2-rc.5` 完成安装、浏览器 OAuth 和真实账户只读查询；连接验证发现了 22 个工具。需要 Node.js 22 或更高版本；DSH 桌面端使用自带的 Node.js。源码发布仓库为 https://github.com/peipei345/hifly-dsh-plugin 。市场收录申请尚未提交。
 
 ## 安装与授权
 
-1. 在 Harness 的「插件 → 添加插件」中填写插件目录的绝对路径，或发布后的安装地址。
+1. 在 Harness 的「插件 → 添加插件」中填写安装地址：
+
+   `https://github.com/peipei345/hifly-dsh-plugin/releases/download/v0.1.0/dsh-hifly-0.1.0.tgz`
+
+   本地开发验证也可以填写插件目录的绝对路径。
 2. 安装并启用「飞影 HiFly」。首次连接会打开飞影网站。
 3. 核对账号，在飞影页面完成授权，再回到 Harness。
 4. 对话中输入：`查询飞影当前套餐和可用积分，只查询，不创建作品。`
