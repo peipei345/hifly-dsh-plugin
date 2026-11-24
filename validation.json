@@ -10,5 +10,24 @@
   "harnessConversationReadOnlyAccountQuery": "passed",
   "generatedContent": false,
   "marketplacePublished": false,
-  "notes": "A disconnected pre-authorization instance was restarted after successful browser consent. Subsequent connection reused the saved grant. No account identifiers, balances, tokens or authorization codes are recorded here."
+  "notes": "A disconnected pre-authorization instance was restarted after successful browser consent. Subsequent connection reused the saved grant. No account identifiers, balances, tokens or authorization codes are recorded here.",
+  "releaseReview": {
+    "date": "2026-11-24",
+    "version": "0.1.1",
+    "host": "DeepSeek Harness Desktop 0.2.2-rc.5",
+    "cleanDesktopCliInstall": "passed",
+    "composedBundleConfiguration": "passed",
+    "packagedEntryAndCheckScript": "passed",
+    "productionDependencyAudit": {
+      "scope": "isolated Desktop CLI profile",
+      "vulnerabilities": 0
+    },
+    "standaloneNpmPeerAudit": {
+      "moderate": 6,
+      "high": 1,
+      "origin": "Extra host peer packages auto-installed by standalone npm: the DSH HTTP/proxy stack and MCP SDK. The Desktop profile audit above does not install this extra host graph. No host version was changed."
+    },
+    "connectionRuntime": "Unchanged from the 0.1.0 browser-OAuth and read-only verification recorded above. Browser authorization was not repeated for this packaging review.",
+    "mediaCreated": false
+  }
 }

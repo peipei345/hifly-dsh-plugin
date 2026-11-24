@@ -1,11 +1,11 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 
-// Run only after the company has selected and published a public release repo.
+// Validate the public release used by the market before generating an entry.
 const repo = process.argv[2];
 if (!repo || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
   console.error('Usage: node scripts/prepare-market-entry.mjs GITHUB_OWNER/REPOSITORY');
-  console.error('The company GitLab project remains private. This does not publish or change any repository.');
+  console.error('This command only reads the selected public repository and writes a local entry.');
   process.exit(1);
 }
 // GitHub CLI honors the machine's proxy configuration and never exposes its token here.
@@ -26,10 +26,19 @@ if (manifest.name !== local.name || manifest.version !== local.version || !manif
 const ageHours = (Date.now() - Date.parse(repository.created_at)) / 3600000;
 if (ageHours < 24) throw new Error(`Market requires a repository at least 24 hours old; current age: ${ageHours.toFixed(1)} h`);
 if (!repository.topics?.includes('dsh-plugin')) throw new Error('Add the dsh-plugin topic before submission');
+const tag = `v${manifest.version}`;
+const release = github(`repos/${repo}/releases/tags/${encodeURIComponent(tag)}`);
+if (release.draft || release.tag_name !== tag) throw new Error('A public versioned Release is required');
+const assetName = `${manifest.name}-${manifest.version}.tgz`;
+const asset = release.assets?.find(item => item.name === assetName && item.state === 'uploaded' && item.size > 0);
+if (!asset) throw new Error(`Release ${tag} is missing the installable asset ${assetName}`);
+const tarball = `https://github.com/${repo}/releases/download/${tag}/${assetName}`;
+if (asset.browser_download_url !== tarball) throw new Error('Release install URL does not match the selected repository and version');
 const outputDir = new URL('../market-output/', import.meta.url);
 await mkdir(outputDir, { recursive: true });
 const filename = `${repo.replace('/', '__')}.yml`;
-const text = `url: https://github.com/${repo}\nname: ${repo}\ncategory: tools\ndescription:\n  en: 'Connect HiFly MCP with browser OAuth to query avatars and voices, generate speech and avatar videos, and check task results.'\n  zh: '飞影 HiFly：通过浏览器授权连接 MCP，查询数字人和声音、生成配音与数字人视频、查询任务结果。'\n`;
+const text = `url: https://github.com/${repo}\nname: ${repo}\ncategory: tools\ndescription:\n  en: 'Connect HiFly MCP with browser OAuth to query avatars and voices, generate speech and avatar videos, and check task results.'\n  zh: '飞影 HiFly：通过浏览器授权连接 MCP，查询数字人和声音、生成配音与数字人视频、查询任务结果。'\ntarball: ${tarball}\n`;
 await writeFile(new URL(filename, outputDir), text);
 console.log(`Ready: market-output/${filename}`);
+console.log(`Install artifact: ${assetName} (${asset.size} bytes), ${tag}`);
 console.log(`Submit it at data/plugins/${filename} in awesome-dsh-plugin/awesome-dsh-plugin.`);

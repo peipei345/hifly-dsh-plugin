@@ -1,6 +1,6 @@
 {
   "name": "dsh-hifly",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "飞影 HiFly：通过浏览器授权，在 DeepSeek Harness 中使用数字人、配音与视频生成工具。",
   "type": "module",
   "main": "./index.mjs",
@@ -18,7 +18,9 @@
     "locale",
     "assets",
     "README.md",
-    "README.en.md"
+    "README.en.md",
+    "scripts/check-package.mjs",
+    "scripts/verify-connection.mjs"
   ],
   "icon": "./assets/icon.svg",
   "homepage": "https://hifly.cc/agent",

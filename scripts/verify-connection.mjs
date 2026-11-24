@@ -1,7 +1,9 @@
 import { spawn } from 'node:child_process';
 import { createInterface } from 'node:readline';
+import { readFile } from 'node:fs/promises';
 import { createConnection } from '../connection.mjs';
 
+const { version } = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 const config = createConnection();
 const env = Object.fromEntries(['HOME', 'USERPROFILE', 'PATH', 'TMPDIR', 'TEMP', 'LANG', 'SystemRoot']
   .filter(key => process.env[key]).map(key => [key, process.env[key]]));
@@ -49,7 +51,7 @@ try {
   console.log('Checking HiFly MCP. A browser may open for your authorization. No content will be created.');
   const initialized = await request('initialize', {
     protocolVersion: '2025-03-26', capabilities: {},
-    clientInfo: { name: 'hifly-dsh-package-check', version: '0.1.0' },
+    clientInfo: { name: 'hifly-dsh-package-check', version },
   });
   send({ method: 'notifications/initialized' });
   let cursor;
