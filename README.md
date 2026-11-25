@@ -35,6 +35,22 @@
 
 能用哪些工具、资源和额度，以当前飞影账号和服务端返回为准。视频等生成操作会消耗飞影积分，安装和连接本身不创建作品。
 
+## 市场配图
+
+以下按公共数字人、导演模板、声音试听的顺序展示。数字人素材库来自飞影官网；模板预览和声音推荐来自 DeepSeek Harness 中的飞影公共素材查询。它们是公共素材与模板示例，本次演示未创建或生成作品。
+
+### 公共数字人素材库
+
+![飞影官网公共数字人素材库](screenshots/01-public-avatars.png)
+
+### 导演模板预览
+
+![Harness 中打开飞影步骤讲解导演模板的真实预览](screenshots/02-director-template.png)
+
+### 声音选择与试听
+
+![Harness 中的飞影公共声音推荐与试听入口](screenshots/03-voice-preview.png)
+
 ## 连接方式
 
 插件将固定名称 `hifly` 注册到 Harness 的 MCP 管理器。远程端点固定为 `https://hifly.cc/mcp`。由于此 DSH 版本没有原生远程 OAuth 流程，使用固定版本 `mcp-remote@0.16.7` 处理标准 OAuth 发现、PKCE、回调和刷新，再通过 stdio 将工具交给 Harness。

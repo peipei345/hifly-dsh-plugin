@@ -20,6 +20,22 @@ HiFly may route consent through `hifly.cc/connect/workbuddy`; the requesting cli
 
 Then list avatars and voices, choose resources, and explicitly request creation. Generation uses HiFly credits. Always check the original task ID instead of submitting a duplicate creation request.
 
+## Screenshots
+
+Shown in order: public avatar library, director template preview, and voice selection. The avatar library is from the HiFly website; the template and voice results are from a real public-resource query using the HiFly plugin in DeepSeek Harness. These are public resource and template examples; this demonstration did not create or generate a work.
+
+### Public avatar library
+
+![HiFly public avatar library](screenshots/01-public-avatars.png)
+
+### Director template preview
+
+![HiFly step-by-step director template opened in Harness](screenshots/02-director-template.png)
+
+### Voice selection and previews
+
+![Public HiFly voices and preview links returned in Harness](screenshots/03-voice-preview.png)
+
 ## Authentication
 
 The plugin registers `hifly` with DSH's MCP manager and uses pinned `mcp-remote@0.16.7` to bridge OAuth-protected Streamable HTTP to stdio. OAuth state is isolated in `~/.dsh/hifly-plugin/auth/` with directory mode `0700`. No shared API key, static bearer header, login item or edits to other MCP entries are needed.
